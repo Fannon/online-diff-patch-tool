@@ -81,21 +81,37 @@ function applyPatch(input) {
   const patchParsed = Diff.parsePatch(input.patch)[0]
   console.dir(patchParsed);
 
+  let fuzzFactor = 0
+  let confidence = 'high'
+
   // https://www.math.utah.edu/docs/info/diff_10.html (fuzz factor explained)
-  let patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 2});
+  let patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 0});
 
   // Try with increasing fuzz factors to merge
   if (!patchedFile) {
+    patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 1});
+    fuzzFactor = 1
+    confidence = 'medium-high'
+  }
+  if (!patchedFile) {
+    patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 2});
+    fuzzFactor = 2
+    confidence = 'medium-low'
+  }
+  if (!patchedFile) {
     patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 3});
-    console.log('Trying to apply patch with fuzz factor 3 instead of 2.');
+    fuzzFactor = 3
+    confidence = 'low'
   }
 
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
-    replaceMessage('success', `<strong>Success</strong>: Applied patch with ${patchParsed.hunks?.length || 0} change sets.`);
+    replaceMessage('success', `<strong>Success</strong>: Applied patch with ${confidence} confidence and ${patchParsed.hunks?.length || 0} change sets.`);
   } else {
     replaceMessage('danger', '<strong>Error</strong>: Patch could not be applied due to invalid patch format or incompatible target file.');
   }
+
+  console.log({fuzzFactor, confidence, success: !!patchedFile})
 }
 
 function sharePatchViaUrl(event) { 
