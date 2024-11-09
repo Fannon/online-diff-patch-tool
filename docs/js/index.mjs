@@ -111,7 +111,7 @@ function applyPatch(input) {
     replaceMessage('danger', '<strong>Error</strong>: Patch could not be applied due to invalid patch format or incompatible target file.');
   }
 
-  console.log({fuzzFactor, confidence, success: !!patchedFile})
+  console.dir({success: !!patchedFile, fuzzFactor, confidence})
 }
 
 function sharePatchViaUrl(event) { 
@@ -177,6 +177,7 @@ function readInput () {
   return { fileName, originalFile, patchedFile, patch }
 };
 
+
 function debounce(func, delay) {
   let timeout
   return function executedFunction(...args) {
@@ -187,12 +188,4 @@ function debounce(func, delay) {
     clearTimeout(timeout)
     timeout = setTimeout(later, delay)
   }
-}
-
-function getMessage(type, message) {
-  return `<div class="notification is-${type}">${message}</div>`;
-}
-
-function replaceMessage(type, message) {
-  messages.innerHTML = getMessage(type, message);
 }
