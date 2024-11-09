@@ -80,8 +80,16 @@ function createPatch(input) {
 function applyPatch(input) {
   const patchParsed = Diff.parsePatch(input.patch)[0]
   console.dir(patchParsed);
-  
-  const patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 3});
+
+  // https://www.math.utah.edu/docs/info/diff_10.html (fuzz factor explained)
+  let patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 2});
+
+  // Try with increasing fuzz factors to merge
+  if (!patchedFile) {
+    patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 3});
+    console.log('Trying to apply patch with fuzz factor 3 instead of 2.');
+  }
+
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
     replaceMessage('success', `<strong>Success</strong>: Applied patch with ${patchParsed.hunks?.length || 0} change sets.`);
