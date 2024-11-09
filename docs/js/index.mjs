@@ -7,12 +7,36 @@ const fileNameEl = document.getElementById('file-name');
 const originalFileEl = document.getElementById('original-file');
 const patchedFileEl = document.getElementById('patched-file');
 const patchEl = document.getElementById('patch');
+const sharePatchButton = document.getElementById('share-patch');
 
 // Event listeners
 originalFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchedFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchEl.addEventListener('input', debounce(onTextInput, debounceTime));
 fileNameEl.addEventListener('input', debounce(onTextInput, debounceTime));
+sharePatchButton.addEventListener('click', sharePatch)
+window.addEventListener('DOMContentLoaded', init);
+
+/**
+ * Main function to run when page is ready
+ */
+function init() {
+
+  if (window.location.hash) {
+    const hash = window.location.hash.trim().slice(1)
+    if (hash.includes('&patch=')) {
+      console.log('loading shared patch', hash)
+      const split = hash.split('&patch=');
+      const fileName = decodeURIComponent(split[0])
+      const patch = atob(split[1])
+
+      console.log({fileName, patch})
+
+      fileNameEl.value = fileName;
+      patchEl.value = patch;
+    }
+  }
+}
 
 /**
  * Main function to handle input changes
@@ -21,7 +45,6 @@ function onTextInput() {
   console.log('onTextInput');
   const input = readInput();
 
-  // const originalFileChanged = input.originalFile !== lastInput.originalFile;
   const patchedFileChanged = input.patchedFile !== lastInput.patchedFile;
   const patchChanged = input.patch !== lastInput.patch;
 
@@ -49,7 +72,7 @@ function createPatch(input) {
   replaceMessage('success', '<strong>Success</strong>: Created patch from diff between original file and changed file.');
 }
 
-function applyPatch(input) {fas
+function applyPatch(input) {
   const patchedFile = Diff.applyPatch(input.originalFile, input.patch);
   console.dir(patchedFile);
   
@@ -60,6 +83,20 @@ function applyPatch(input) {fas
   } else {
     replaceMessage('error', 'Invalid patch format');
   }
+}
+
+function sharePatch(event) { 
+  event.preventDefault();
+  const fileNameEncoded = encodeURIComponent(fileNameEl.value);
+  const patchEncoded = btoa(patchEl.value);
+
+  const hashLocation = `${fileNameEncoded}&patch=${patchEncoded}`;
+
+  window.location.hash = hashLocation;
+
+  const shareUrl = `${window.location.origin}${window.location.pathname}#${hashLocation}`;
+
+  console.log({ shareUrl });
 }
 
 

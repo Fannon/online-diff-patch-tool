@@ -24,24 +24,27 @@
           <input id="file-name" class="input" type="text" value="file.txt" />
         </div>
         <div class="cell">
-          <button disabled class="button is-primary" id="createPatch">Share Patch via URL (clipboard)</button>
+          <button class="button is-primary" id="share-patch">Share Patch via URL (clipboard)</button>
         </div>
       </div>
 
       <div class="grid">
         <div class="cell">
           <h2>Original File</h2>
-          <textarea id="original-file" class="textarea is-family-monospace"
+          <textarea id="original-file" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false"
             placeholder="Paste original file here (without changes)."></textarea>
         </div>
         <div class="cell">
           <h2>Patched File</h2>
-          <textarea id="patched-file" class="textarea is-family-monospace"
+          <textarea id="patched-file" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false"
             placeholder="Paste patched file here if you want to generate / update the patch."></textarea>
         </div>
         <div class="cell">
           <h2>Patch</h2>
-          <textarea id="patch" class="textarea is-family-monospace"
+          <textarea id="patch" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false"
             placeholder="Paste patch here if you want to generate patched file from original file."></textarea>
         </div>
       </div>
@@ -54,9 +57,11 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>Online Diff / Patch Tool</strong> by <a href="https://github.com/Fannon">Simon Heimler</a>. <br/>
-        Open Source: <a href="https://github.com/Fannon/online-diff-patch-tool">github.com/Fannon/online-diff-patch-tool</a>. <br/>
-        Credits to <a href="https://github.com/kpdecker/jsdiff#readme">jsdiff</a> for the diffing algorithm implementation.
+        <strong>Online Diff / Patch Tool</strong> by <a href="https://github.com/Fannon">Simon Heimler</a>. <br />
+        Open Source: <a
+          href="https://github.com/Fannon/online-diff-patch-tool">github.com/Fannon/online-diff-patch-tool</a>. <br />
+        Credits to <a href="https://github.com/kpdecker/jsdiff#readme">jsdiff</a> for the diffing algorithm
+        implementation.
       </p>
     </div>
   </footer>
