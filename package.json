@@ -1,0 +1,18 @@
+{
+  "name": "online-diff-patch-tool",
+  "version": "0.1.0",
+  "description": "An online tool to create or apply diff patches ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "diff",
+    "patch",
+    "merge",
+    "online",
+    "web"
+  ],
+  "author": "Simon Heimler",
+  "license": "MIT"
+}
