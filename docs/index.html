@@ -34,19 +34,19 @@
           <h2>Original File</h2>
           <textarea id="original-file" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
             autocapitalize="off" spellcheck="false"
-            placeholder="Paste original file here (without changes)."></textarea>
+            placeholder="Paste original file&#10;(without changes) here."></textarea>
         </div>
         <div class="cell">
-          <h2>Patched File</h2>
+          <h2>Patched File <button id="copy-patched-file" class="button is-small">Copy to Clipboard</button></h2>
           <textarea id="patched-file" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
             autocapitalize="off" spellcheck="false"
-            placeholder="Paste patched file here if you want to generate / update the patch."></textarea>
+            placeholder="Paste patched file here&#10;if you want to generate /&#10;update the patch."></textarea>
         </div>
         <div class="cell">
-          <h2>Patch</h2>
+          <h2>Patch <button id="copy-patch" class="button is-small">Copy to Clipboard</button></h2>
           <textarea id="patch" class="textarea is-family-monospace" autocomplete="off" autocorrect="off"
             autocapitalize="off" spellcheck="false"
-            placeholder="Paste patch here if you want to generate patched file from original file."></textarea>
+            placeholder="Paste patch here if you want&#10;to generate patched file&#10;from original file."></textarea>
         </div>
       </div>
       <div class="grid">
@@ -69,7 +69,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/diff@7.0.0/dist/diff.min.js"
     integrity="sha256-wqCU6CxON0fxBT9c/wJ/dGEm4mA9b7AVuGfrAuCgmO4=" crossorigin="anonymous"></script>
-  <script src="js/index.mjs" type="module"></script>
+   <script src="js/index.mjs" type="module"></script>
 
 </body>
 

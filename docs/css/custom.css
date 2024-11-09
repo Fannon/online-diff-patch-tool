@@ -1,6 +1,29 @@
 :root {
   --bulma-textarea-min-height: 16rem;
 }
+.section {
+  --bulma-section-padding: 2rem 1.5rem;
+  --bulma-section-padding-desktop: 2rem 2rem;
+  --bulma-section-padding-medium: 2rem 2rem;
+  --bulma-section-padding-large: 3rem 5rem;
+  padding: var(--bulma-section-padding);
+}
+
+.container {
+  max-width: 100% !important;
+}
+
+/* @media screen and (min-width: 1408px) {
+  .container:not(.is-max-tablet):not(.is-max-desktop):not(.is-max-widescreen) {
+      max-width: 1644px;
+  }
+}
+@media screen and (min-width: 1216px) {
+  .container:not(.is-max-tablet):not(.is-max-desktop) {
+      max-width: 1152px;
+  }
+} */
+
 h1.title a {
   color: #00d1b2 !important;
 }
@@ -8,12 +31,15 @@ h1.title a {
 h2 {
     font-size: 1.2rem;
     font-weight: 700;
+    margin: 0 0 0.5rem 0;
 }
 .textarea {
-    min-height: 400px !important;
+    min-height: 450px !important;
     font-size: 0.85rem;
     overflow-y: auto;
     overflow-x: auto;
+    white-space: pre;
+    overflow-wrap: normal;
 }
 
 footer {

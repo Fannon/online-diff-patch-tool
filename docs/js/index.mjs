@@ -9,6 +9,8 @@ const patchedFileEl = document.getElementById('patched-file');
 const patchEl = document.getElementById('patch');
 const sharePatchButton = document.getElementById('share-patch');
 const resetButton = document.getElementById('reset');
+const copyPatchedFileButton = document.getElementById('copy-patched-file');
+const copyPatchButton = document.getElementById('copy-patch');
 const messages = document.getElementById('messages');
 
 // Event listeners
@@ -16,8 +18,10 @@ originalFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchedFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchEl.addEventListener('input', debounce(onTextInput, debounceTime));
 fileNameEl.addEventListener('input', debounce(onTextInput, debounceTime));
-sharePatchButton.addEventListener('click', sharePatch)
+sharePatchButton.addEventListener('click', sharePatchViaUrl)
 resetButton.addEventListener('click', reset)
+copyPatchedFileButton.addEventListener('click', copyPatchedFile)
+copyPatchButton.addEventListener('click', copyPatch)
 window.addEventListener('DOMContentLoaded', init);
 
 /**
@@ -83,7 +87,7 @@ function applyPatch(input) {
   }
 }
 
-function sharePatch(event) { 
+function sharePatchViaUrl(event) { 
   event.preventDefault();
   const fileNameEncoded = encodeURIComponent(fileNameEl.value);
   const patchEncoded = btoa(patchEl.value);
@@ -104,6 +108,27 @@ function sharePatch(event) {
   replaceMessage('success', `<strong>Share Link</strong>: <a href="${shareUrl}}">Patch for ${fileNameEl.value}</a>`)
   
   console.log({ shareUrl });
+}
+
+function copyPatch(event) { 
+  event.preventDefault();
+  navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+    if (result.state === "granted" || result.state === "prompt") {
+      navigator.clipboard.writeText(patchEl.value);
+      console.log('Copied Patch to clipboard');
+      replaceMessage('success', `<strong>Success</strong>: Patch copied into clipboard.`)
+    }
+  });
+}
+function copyPatchedFile(event) { 
+  event.preventDefault();
+  navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+    if (result.state === "granted" || result.state === "prompt") {
+      navigator.clipboard.writeText(patchedFileEl.value);
+      console.log('Copied Patch to clipboard');
+      replaceMessage('success', `<strong>Success</strong>: Patched file copied into clipboard.`)
+    }
+  });
 }
 
 function reset(event) { 
