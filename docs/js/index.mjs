@@ -28,15 +28,17 @@ function init() {
   if (window.location.hash) {
     const hash = window.location.hash.trim().slice(1)
     if (hash.includes('&patch=')) {
-      console.log('loading shared patch', hash)
+      console.log('Loading shared patch', hash)
       const split = hash.split('&patch=');
       const fileName = decodeURIComponent(split[0])
       const patch = atob(split[1])
 
-      console.log({fileName, patch})
+      console.log('Loaded patch from sharable URL', {fileName, patch})
 
       fileNameEl.value = fileName;
       patchEl.value = patch;
+
+      replaceMessage('info', `<strong>Shared URL</strong>: Loaded patch from sharable URL`)
     }
   }
 }
