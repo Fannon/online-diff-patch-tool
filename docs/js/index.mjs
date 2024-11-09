@@ -45,17 +45,14 @@ function init() {
  * Main function to handle input changes
  */
 function onTextInput() {
-  console.log('onTextInput');
   const input = readInput();
 
   const patchedFileChanged = input.patchedFile !== lastInput.patchedFile;
   const patchChanged = input.patch !== lastInput.patch;
 
   if (patchedFileChanged && input.originalFile) {
-    console.log('patchedFileChanged')
     createPatch(input);
   } else if (patchChanged && input.originalFile) {
-    console.log('patchChanged')
     applyPatch(input);
   } else if (input.originalFile && input.patchedFile) {
     createPatch(input);
@@ -70,19 +67,15 @@ function onTextInput() {
 
 function createPatch(input) {
   const patchText = Diff.createPatch(input.fileName, input.originalFile, input.patchedFile)
-  console.dir(patchText);
   patchEl.value = patchText;
   replaceMessage('success', '<strong>Success</strong>: Created patch from diff between original file and changed file.');
 }
 
 function applyPatch(input) {
   const patchedFile = Diff.applyPatch(input.originalFile, input.patch);
-  console.dir(patchedFile);
-  
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
     replaceMessage('success', '<strong>Success</strong>: Applied patch.');
-
   } else {
     replaceMessage('error', 'Invalid patch format');
   }
