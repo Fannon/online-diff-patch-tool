@@ -81,22 +81,17 @@ function applyPatch(input) {
   const patchParsed = Diff.parsePatch(input.patch)[0]
   console.dir(patchParsed);
 
-  let fuzzFactor = 0
+  let fuzzFactor = 1
   let confidence = 'high'
 
   // https://www.math.utah.edu/docs/info/diff_10.html (fuzz factor explained)
-  let patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 0});
+  let patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 1});
 
   // Try with increasing fuzz factors to merge
   if (!patchedFile) {
-    patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 1});
-    fuzzFactor = 1
-    confidence = 'medium-high'
-  }
-  if (!patchedFile) {
     patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 2});
     fuzzFactor = 2
-    confidence = 'medium-low'
+    confidence = 'medium'
   }
   if (!patchedFile) {
     patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 3});
