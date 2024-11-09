@@ -78,12 +78,15 @@ function createPatch(input) {
 }
 
 function applyPatch(input) {
+  const patchParsed = Diff.parsePatch(input.patch)[0]
+  console.dir(patchParsed);
+  
   const patchedFile = Diff.applyPatch(input.originalFile, input.patch);
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
-    replaceMessage('success', '<strong>Success</strong>: Applied patch.');
+    replaceMessage('success', `<strong>Success</strong>: Applied patch with ${patchParsed.hunks?.length || 0} change sets.`);
   } else {
-    replaceMessage('error', 'Invalid patch format');
+    replaceMessage('danger', '<strong>Error</strong>: Patch could not be applied due to invalid patch format or incompatible target file.');
   }
 }
 
@@ -151,14 +154,16 @@ function readInput () {
 };
 
 function debounce(func, delay) {
-  let debounceTimer;
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => func.apply(context, args), delay);
-  };
-};
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func.apply(this, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, delay)
+  }
+}
 
 function getMessage(type, message) {
   return `<div class="notification is-${type}">${message}</div>`;
