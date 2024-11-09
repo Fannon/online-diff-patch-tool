@@ -19,6 +19,9 @@ h2 {
     font-weight: 700;
     margin: 0 0 0.5rem 0;
 }
+strong {
+  font-weight: 700;
+}
 .textarea {
     min-height: 450px !important;
     font-size: 0.85rem;
@@ -27,6 +30,37 @@ h2 {
     white-space: pre;
     overflow-wrap: normal;
 }
+
+
+
+#original-file, 
+.original-file {
+  border: 2px solid #c546e0;
+}
+
+.original-file {
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+
+#patched-file,
+.patched-file {
+  border: 2px solid #51a5e1;
+}
+.patched-file {
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+
+#patch,
+.patch {
+  border: 2px solid #00d1b2;
+}
+.patch {
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+
 
 footer {
   --bulma-footer-padding: 1rem !important;
