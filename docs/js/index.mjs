@@ -143,9 +143,9 @@ function reset(event) {
 
 function readInput () {
   const fileName = fileNameEl.value.trim() || 'file.txt';
-  const originalFile = originalFileEl.value.trim();
-  const patchedFile = patchedFileEl.value.trim();
-  const patch = patchEl.value.trim();
+  const originalFile = originalFileEl.value;
+  const patchedFile = patchedFileEl.value;
+  const patch = patchEl.value;
   console.log({ fileName, originalFile, patchedFile, patch });
   return { fileName, originalFile, patchedFile, patch }
 };
