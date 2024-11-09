@@ -98,7 +98,16 @@ function sharePatch(event) {
   window.location.hash = hashLocation;
 
   const shareUrl = `${window.location.origin}${window.location.pathname}#${hashLocation}`;
-  navigator.clipboard.writeText(shareUrl);
+  
+  navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+    if (result.state === "granted" || result.state === "prompt") {
+      navigator.clipboard.writeText(shareUrl);
+      console.log('Copied URL to clipboard');
+    }
+  });
+  
+  replaceMessage('success', `<strong>Share Link</strong>: <a href="${shareUrl}}">Patch for ${fileNameEl.value}</a>`)
+  
   console.log({ shareUrl });
 }
 
