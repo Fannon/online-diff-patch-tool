@@ -81,7 +81,7 @@ function applyPatch(input) {
   const patchParsed = Diff.parsePatch(input.patch)[0]
   console.dir(patchParsed);
   
-  const patchedFile = Diff.applyPatch(input.originalFile, input.patch);
+  const patchedFile = Diff.applyPatch(input.originalFile, input.patch, {fuzzFactor: 3});
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
     replaceMessage('success', `<strong>Success</strong>: Applied patch with ${patchParsed.hunks?.length || 0} change sets.`);
