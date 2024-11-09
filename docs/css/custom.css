@@ -1,0 +1,14 @@
+:root {
+  --bulma-textarea-min-height: 16rem;
+}
+h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.textarea {
+    min-height: 400px !important;
+    font-size: 0.85rem;
+    overflow-y: auto;
+    overflow-x: auto;
+}
