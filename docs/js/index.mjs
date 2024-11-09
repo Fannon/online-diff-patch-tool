@@ -8,6 +8,8 @@ const originalFileEl = document.getElementById('original-file');
 const patchedFileEl = document.getElementById('patched-file');
 const patchEl = document.getElementById('patch');
 const sharePatchButton = document.getElementById('share-patch');
+const resetButton = document.getElementById('reset');
+const messages = document.getElementById('messages');
 
 // Event listeners
 originalFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
@@ -15,6 +17,7 @@ patchedFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchEl.addEventListener('input', debounce(onTextInput, debounceTime));
 fileNameEl.addEventListener('input', debounce(onTextInput, debounceTime));
 sharePatchButton.addEventListener('click', sharePatch)
+resetButton.addEventListener('click', reset)
 window.addEventListener('DOMContentLoaded', init);
 
 /**
@@ -95,10 +98,19 @@ function sharePatch(event) {
   window.location.hash = hashLocation;
 
   const shareUrl = `${window.location.origin}${window.location.pathname}#${hashLocation}`;
-
+  navigator.clipboard.writeText(shareUrl);
   console.log({ shareUrl });
 }
 
+function reset(event) { 
+  event.preventDefault();
+  window.location.hash = '';
+  fileNameEl.value = 'file.txt';
+  originalFileEl.value = '';
+  patchedFileEl.value = '';
+  patchEl.value = '';
+  messages.innerHTML = '';
+}
 
 function readInput () {
   const fileName = fileNameEl.value.trim() || 'file.txt';
@@ -124,6 +136,5 @@ function getMessage(type, message) {
 }
 
 function replaceMessage(type, message) {
-  const el = document.getElementById('messages');
-  el.innerHTML = getMessage(type, message);
+  messages.innerHTML = getMessage(type, message);
 }
