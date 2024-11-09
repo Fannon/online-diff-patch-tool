@@ -1,5 +1,5 @@
 // Config and state
-const debounceTime = 500;
+const debounceTime = 300;
 let lastInput = { fileName: '', originalFile: '', patchedFile: '', patch: '' };
 
 // DOM elements

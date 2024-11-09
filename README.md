@@ -11,6 +11,10 @@ Patches can also be shared via URL.
 
 If you have questions, problems or suggestions, please create a [GitHub issue](https://github.com/Fannon/online-diff-patch-tool/issues).
 
+## Screenshot
+
+![Screenshot](assets/screenshot.png "Screenshot")
+
 ## Credits
 
 * [jsdiff](https://github.com/kpdecker/jsdiff#readme) for the diffing algorithm implementation.
