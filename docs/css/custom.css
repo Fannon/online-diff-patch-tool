@@ -12,3 +12,7 @@ h2 {
     overflow-y: auto;
     overflow-x: auto;
 }
+
+footer {
+  --bulma-footer-padding: 1rem !important;
+}

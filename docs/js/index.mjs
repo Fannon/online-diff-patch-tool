@@ -1,6 +1,6 @@
 // Config and state
 const debounceTime = 500;
-let lastInput = { };
+let lastInput = { fileName: '', originalFile: '', patchedFile: '', patch: '' };
 
 // DOM elements
 const fileNameEl = document.getElementById('file-name');
@@ -13,8 +13,6 @@ originalFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchedFileEl.addEventListener('input', debounce(onTextInput, debounceTime));
 patchEl.addEventListener('input', debounce(onTextInput, debounceTime));
 fileNameEl.addEventListener('input', debounce(onTextInput, debounceTime));
-
-onTextInput();
 
 /**
  * Main function to handle input changes
@@ -38,28 +36,26 @@ function onTextInput() {
   } else if (input.originalFile && input.patch) {
     applyPatch(input);
   } else {
-    // TODO: Better response
-    replaceMessage('warning', 'Missing input: Either provide original and patched file or original file and patch.');
+    replaceMessage('warning', '<strong>Missing input</strong>: Either provide original and patched file or original file and patch.');
   }
 
   lastInput = input;
-
 }
 
 function createPatch(input) {
   const patchText = Diff.createPatch(input.fileName, input.originalFile, input.patchedFile)
   console.dir(patchText);
   patchEl.value = patchText;
-  replaceMessage('success', 'Created patch from diff between original file and changed file.');
+  replaceMessage('success', '<strong>Success</strong>: Created patch from diff between original file and changed file.');
 }
 
-function applyPatch(input) {
+function applyPatch(input) {fas
   const patchedFile = Diff.applyPatch(input.originalFile, input.patch);
   console.dir(patchedFile);
   
   if (patchedFile) {
     patchedFileEl.value = patchedFile;
-    replaceMessage('success', 'Applied patch.');
+    replaceMessage('success', '<strong>Success</strong>: Applied patch.');
 
   } else {
     replaceMessage('error', 'Invalid patch format');
