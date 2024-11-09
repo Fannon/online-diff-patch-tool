@@ -35,7 +35,7 @@ strong {
 
 #original-file, 
 .original-file {
-  border: 2px solid #c546e0;
+  border: 2px solid #d789e8;
 }
 
 .original-file {
@@ -45,7 +45,7 @@ strong {
 
 #patched-file,
 .patched-file {
-  border: 2px solid #51a5e1;
+  border: 2px solid #8fcaf5;
 }
 .patched-file {
   border-radius: 5px;
@@ -54,7 +54,7 @@ strong {
 
 #patch,
 .patch {
-  border: 2px solid #00d1b2;
+  border: 2px solid #8ed4ca;
 }
 .patch {
   border-radius: 5px;
